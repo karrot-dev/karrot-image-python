@@ -22,7 +22,7 @@ RUN apt-get update && \
     && apt clean
 
 # https://github.com/nodesource/distributions/blob/master/README.md#deb
-RUN curl -fsSL https://deb.nodesource.com/setup_12.x | bash - && apt-get install -y nodejs
+RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash - && apt-get install -y nodejs
 
 RUN curl -o /usr/local/bin/circleci \
         https://circle-downloads.s3.amazonaws.com/releases/build_agent_wrapper/circleci && \
