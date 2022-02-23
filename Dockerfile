@@ -19,6 +19,7 @@ RUN apt-get update && \
         libproj-dev \
         gdal-bin \
         zip \
+        postgresql-client \
     && apt clean
 
 # https://github.com/nodesource/distributions/blob/master/README.md#deb
