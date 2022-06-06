@@ -56,3 +56,7 @@ RUN wget https://github.com/rust-lang/mdBook/releases/download/v${MDBOOK_VERSION
     tar -xf mdbook-v${MDBOOK_VERSION}-x86_64-unknown-linux-gnu.tar.gz && \
     rm mdbook-v${MDBOOK_VERSION}-x86_64-unknown-linux-gnu.tar.gz && \
     mv mdbook /usr/local/bin
+
+# debian buster doesn't seem to get this update yet...
+# see https://launchpad.net/debian/+source/tzdata/+changelog
+RUN ln -sf /usr/share/zoneinfo/Pacific/Enderbury /usr/share/zoneinfo/Pacific/Kanton
