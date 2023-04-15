@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM debian:bullseye
 
 RUN apt-get update && \
     apt-get install -y \
@@ -6,8 +6,8 @@ RUN apt-get update && \
         gnupg \
         gnupg1 \
         gnupg2 \
-        python3.7 \
-        python3.7-dev \
+        python3 \
+        python3-dev \
         virtualenv \
         build-essential \
         git \
@@ -23,7 +23,7 @@ RUN apt-get update && \
     && apt clean
 
 # https://github.com/nodesource/distributions/blob/master/README.md#deb
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && apt-get install -y nodejs
+RUN curl -fsSL https://deb.nodesource.com/setup_19.x | bash - && apt-get install -y nodejs
 
 RUN curl -o /usr/local/bin/circleci \
         https://circle-downloads.s3.amazonaws.com/releases/build_agent_wrapper/circleci && \
@@ -50,13 +50,17 @@ RUN wget https://github.com/github/hub/releases/download/v${HUB_VERSION}/hub-lin
     rm hub-linux-amd64-${HUB_VERSION}.tgz && \
     rm -r hub-linux-amd64-${HUB_VERSION}
 
-ENV MDBOOK_VERSION=0.4.14
+ENV MDBOOK_VERSION=0.4.28
 
 RUN wget https://github.com/rust-lang/mdBook/releases/download/v${MDBOOK_VERSION}/mdbook-v${MDBOOK_VERSION}-x86_64-unknown-linux-gnu.tar.gz && \
     tar -xf mdbook-v${MDBOOK_VERSION}-x86_64-unknown-linux-gnu.tar.gz && \
     rm mdbook-v${MDBOOK_VERSION}-x86_64-unknown-linux-gnu.tar.gz && \
     mv mdbook /usr/local/bin
 
-# debian buster doesn't seem to get this update yet...
-# see https://launchpad.net/debian/+source/tzdata/+changelog
-RUN ln -sf /usr/share/zoneinfo/Pacific/Enderbury /usr/share/zoneinfo/Pacific/Kanton
+ENV TXCLI_VERSION=1.6.7
+
+RUN wget https://github.com/transifex/cli/releases/download/v${TXCLI_VERSION}/tx-linux-amd64.tar.gz && \
+    tar -xf tx-linux-amd64.tar.gz && \
+    rm tx-linux-amd64.tar.gz && \
+    mv tx /usr/local/bin
+
