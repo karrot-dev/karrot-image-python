@@ -64,3 +64,9 @@ RUN wget https://github.com/transifex/cli/releases/download/v${TXCLI_VERSION}/tx
     rm tx-linux-amd64.tar.gz && \
     mv tx /usr/local/bin
 
+# seems to be needed for the "python-magic" package which is an indirect karrot dependency
+RUN apt-get update && \
+    apt-get install -y \
+        libmagic1 \
+    && apt clean
+
